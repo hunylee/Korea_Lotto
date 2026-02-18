@@ -1,65 +1,146 @@
-import Image from "next/image";
 
-export default function Home() {
+import { getLatestRound, getLottoHistory } from "@/lib/data-service";
+import { LottoBall } from "@/components/lotto-ball";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, BarChart2, Dna, RefreshCw } from "lucide-react";
+import Link from "next/link";
+import { getFrequencyMap, getHotColdNumbers } from "@/lib/statistics";
+
+export default async function Home() {
+  const latestRound = await getLatestRound();
+  const history = await getLottoHistory();
+
+  // Quick Stats
+  const hotCold = getHotColdNumbers(history);
+
+  if (!latestRound) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-background text-foreground">
+        <p>No data available. Please run the mock data generator.</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="min-h-screen bg-background text-foreground pb-20">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden py-24 px-6 md:px-12 lg:px-24 bg-gradient-to-b from-slate-900 to-background border-b border-border">
+        <div className="max-w-5xl mx-auto flex flex-col items-center text-center space-y-8">
+          <div className="space-y-4">
+            <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
+              데이터로 승리하다
+            </h1>
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl">
+              대한민국 로또 6/45의 {history.length}회 역사적 데이터를 기반으로 한 정밀 분석 및 예측 플랫폼.
+            </p>
+          </div>
+
+          <Card className="w-full max-w-3xl bg-card/50 backdrop-blur-sm border-primary/20 shadow-2xl">
+            <CardHeader>
+              <CardDescription className="uppercase tracking-widest font-semibold text-primary">
+                최신 회차 • {latestRound.drwNo}회 ({latestRound.drwNoDate})
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="flex flex-col items-center gap-8">
+              <div className="flex flex-wrap justify-center gap-4">
+                <LottoBall number={latestRound.drwtNo1} size="lg" />
+                <LottoBall number={latestRound.drwtNo2} size="lg" />
+                <LottoBall number={latestRound.drwtNo3} size="lg" />
+                <LottoBall number={latestRound.drwtNo4} size="lg" />
+                <LottoBall number={latestRound.drwtNo5} size="lg" />
+                <LottoBall number={latestRound.drwtNo6} size="lg" />
+                <div className="w-16 h-16 flex items-center justify-center text-2xl font-light text-muted-foreground">+</div>
+                <LottoBall number={latestRound.bnusNo} size="lg" className="opacity-90" />
+              </div>
+              <div className="text-sm text-muted-foreground">
+                총 판매금액: {(latestRound.totSellamnt || 0).toLocaleString()}원
+              </div>
+            </CardContent>
+          </Card>
+
+          <div className="flex gap-4">
+            <Link href="/generate">
+              <Button size="lg" className="h-12 px-8 text-md font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-500/20">
+                <Dna className="mr-2 h-5 w-5" /> 번호 생성하기
+              </Button>
+            </Link>
+            <Link href="/analytics">
+              <Button size="lg" variant="outline" className="h-12 px-8 text-md font-semibold border-slate-700 hover:bg-slate-800">
+                <BarChart2 className="mr-2 h-5 w-5" /> 상세 분석 보기
+              </Button>
+            </Link>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* Quick Insights Grid */}
+      <section className="max-w-6xl mx-auto px-6 py-12">
+        <h2 className="text-2xl font-bold mb-8">데이터 하이라이트</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          {/* Hot Numbers */}
+          <Card className="bg-card/50 border-border/50">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-lg flex items-center gap-2">
+                <span className="text-red-500">🔥</span> 자주 나오는 번호 (Hot)
+                <span className="text-xs font-normal text-muted-foreground ml-auto">최근 20회 기준</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex justify-between items-end mt-2">
+                {hotCold.hot.slice(0, 5).map((item, idx) => (
+                  <div key={idx} className="flex flex-col items-center gap-2">
+                    <LottoBall number={item.number} size="sm" />
+                    <span className="text-xs font-mono text-muted-foreground">{item.count}x</span>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Cold Numbers */}
+          <Card className="bg-card/50 border-border/50">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-lg flex items-center gap-2">
+                <span className="text-blue-500">❄️</span> 안 나오는 번호 (Cold)
+                <span className="text-xs font-normal text-muted-foreground ml-auto">최근 20회 기준</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex justify-between items-end mt-2">
+                {hotCold.cold.slice(0, 5).map((item, idx) => (
+                  <div key={idx} className="flex flex-col items-center gap-2">
+                    <LottoBall number={item.number} size="sm" />
+                    <span className="text-xs font-mono text-muted-foreground">{item.count}x</span>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Next Draw Info (Static/Calculated) */}
+          <Card className="bg-card/50 border-border/50">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-lg flex items-center gap-2">
+                <RefreshCw className="w-5 h-5 text-green-500" /> 다음 회차 정보
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex justify-between items-center mt-2">
+                <span className="text-muted-foreground">회차</span>
+                <span className="font-bold text-xl">{latestRound.drwNo + 1}회</span>
+              </div>
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-muted-foreground">예상 1등 당첨금</span>
+                <span className="font-mono text-green-400">약 25억+</span>
+              </div>
+              <Button className="w-full mt-2" variant="secondary" disabled>준비중</Button>
+            </CardContent>
+          </Card>
+
         </div>
-      </main>
-    </div>
+      </section>
+    </main>
   );
 }
