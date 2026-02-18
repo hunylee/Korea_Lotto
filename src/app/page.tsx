@@ -60,16 +60,16 @@ export default async function Home() {
           </Card>
 
           <div className="flex gap-4">
-            <Link href="/generate">
-              <Button size="lg" className="h-12 px-8 text-md font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-500/20">
+            <Button size="lg" className="h-12 px-8 text-md font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-500/20" asChild>
+              <Link href="/generate">
                 <Dna className="mr-2 h-5 w-5" /> 번호 생성하기
-              </Button>
-            </Link>
-            <Link href="/analytics">
-              <Button size="lg" variant="outline" className="h-12 px-8 text-md font-semibold border-slate-700 hover:bg-slate-800">
+              </Link>
+            </Button>
+            <Button size="lg" variant="outline" className="h-12 px-8 text-md font-semibold border-slate-700 hover:bg-slate-800" asChild>
+              <Link href="/analytics">
                 <BarChart2 className="mr-2 h-5 w-5" /> 상세 분석 보기
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </div>
         </div>
       </section>
