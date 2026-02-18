@@ -54,7 +54,7 @@ export default async function Home() {
                 <LottoBall number={latestRound.bnusNo} size="lg" className="opacity-90" />
               </div>
               <div className="text-sm text-muted-foreground">
-                총 판매금액: {(latestRound.totSellamnt || 0).toLocaleString()}원
+                총 판매금액: {(latestRound.totSellamnt || 0).toLocaleString('ko-KR')}원
               </div>
             </CardContent>
           </Card>
