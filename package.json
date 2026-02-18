@@ -2,6 +2,7 @@
   "name": "korea-lotto",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://hunylee.github.io/Korea_Lotto/",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
