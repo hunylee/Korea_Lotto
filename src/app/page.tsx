@@ -42,6 +42,7 @@ export default async function Home() {
                 최신 회차 • {latestRound.drwNo}회 ({latestRound.drwNoDate})
               </CardDescription>
             </CardHeader>
+
             <CardContent className="flex flex-col items-center gap-8">
               <div className="flex flex-wrap justify-center gap-4">
                 <LottoBall number={latestRound.drwtNo1} size="lg" />
@@ -53,6 +54,27 @@ export default async function Home() {
                 <div className="w-16 h-16 flex items-center justify-center text-2xl font-light text-muted-foreground">+</div>
                 <LottoBall number={latestRound.bnusNo} size="lg" className="opacity-90" />
               </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-lg text-center">
+                <div className="flex flex-col gap-1 p-4 rounded-xl bg-slate-100 dark:bg-slate-800/50">
+                  <span className="text-sm font-medium text-muted-foreground">1등 당첨금 ({latestRound.firstPrzwnerCo}명)</span>
+                  <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                    {(latestRound.firstWinamnt || 0).toLocaleString('ko-KR')}원
+                  </span>
+                </div>
+                <div className="flex flex-col gap-1 p-4 rounded-xl bg-slate-100 dark:bg-slate-800/50">
+                  <span className="text-sm font-medium text-muted-foreground">2등 당첨금</span>
+                  <a
+                    href={`https://www.dhlottery.co.kr/gameResult.do?method=byWin&drwNo=${latestRound.drwNo}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-lg font-semibold text-slate-700 dark:text-slate-300 hover:text-blue-500 hover:underline flex items-center justify-center gap-1 mt-1"
+                  >
+                    홈페이지에서 확인 <ArrowRight className="w-4 h-4" />
+                  </a>
+                </div>
+              </div>
+
               <div className="text-sm text-muted-foreground">
                 총 판매금액: {(latestRound.totSellamnt || 0).toLocaleString('ko-KR')}원
               </div>
