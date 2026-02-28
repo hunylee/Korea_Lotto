@@ -33,7 +33,7 @@ export default async function Home() {
               데이터로 승리하다
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl">
-              대한민국 로또 6/45의 {history.length}회 역사적 데이터를 기반으로 한 정밀 분석 및 예측 플랫폼.
+              대한민국 로또 6/45의 {latestRound.drwNo}회 역사적 데이터를 기반으로 한 정밀 분석 및 예측 플랫폼.
             </p>
           </div>
 

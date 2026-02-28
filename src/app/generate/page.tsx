@@ -5,15 +5,22 @@ import { useState } from "react";
 import { LottoBall } from "@/components/lotto-ball";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Dna, RefreshCw, Zap } from "lucide-react";
+import { Dna, RefreshCw, Zap, Search } from "lucide-react";
+import { checkPastWinnings } from "../actions/check-winnings";
 
 export default function GeneratePage() {
     const [numberSets, setNumberSets] = useState<number[][]>([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [isSimulating, setIsSimulating] = useState(false);
+
+    // Type definition for simulation results
+    type SimulationResult = { rank1: number; rank2: number; rank3: number; rank4: number; rank5: number };
+    const [simulationResults, setSimulationResults] = useState<SimulationResult[] | null>(null);
 
     const generateNumbers = (strategy: 'random' | 'weighted') => {
         setIsLoading(true);
         setNumberSets([]); // Clear previous results immediately
+        setSimulationResults(null); // Clear previous simulations
 
         // Simulate complex calculation
         setTimeout(() => {
@@ -30,6 +37,20 @@ export default function GeneratePage() {
             setNumberSets(newSets);
             setIsLoading(false);
         }, 800);
+    };
+
+    const runSimulation = async () => {
+        if (numberSets.length === 0) return;
+        setIsSimulating(true);
+        try {
+            const results = await checkPastWinnings(numberSets);
+            setSimulationResults(results);
+        } catch (error) {
+            console.error("Simulation failed:", error);
+            alert("시뮬레이션 중 오류가 발생했습니다.");
+        } finally {
+            setIsSimulating(false);
+        }
     };
 
     return (
@@ -68,21 +89,66 @@ export default function GeneratePage() {
                             ))}
                         </div>
                     ) : numberSets.length > 0 ? (
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                            {numberSets.map((set, idx) => (
-                                <Card key={idx} className="bg-card/50 border-primary/20">
-                                    <CardHeader className="py-3 px-4 pb-0">
-                                        <CardDescription className="text-xs font-mono uppercase tracking-widest text-primary">
-                                            Set {idx + 1}
-                                        </CardDescription>
-                                    </CardHeader>
-                                    <CardContent className="py-4 flex justify-center gap-2">
-                                        {set.map(n => (
-                                            <LottoBall key={n} number={n} size="sm" />
-                                        ))}
-                                    </CardContent>
-                                </Card>
-                            ))}
+                        <div className="space-y-6">
+                            <div className="flex justify-end animate-in fade-in duration-500">
+                                <Button
+                                    onClick={runSimulation}
+                                    disabled={isSimulating}
+                                    className="bg-green-600 hover:bg-green-700 text-white"
+                                >
+                                    {isSimulating ? (
+                                        <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+                                    ) : (
+                                        <Search className="mr-2 h-4 w-4" />
+                                    )}
+                                    과거 당첨 내역 확인 (시뮬레이션)
+                                </Button>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                                {numberSets.map((set, idx) => (
+                                    <div key={idx} className="flex flex-col gap-2">
+                                        <Card className="bg-card/50 border-primary/20">
+                                            <CardHeader className="py-3 px-4 pb-0">
+                                                <CardDescription className="text-xs font-mono uppercase tracking-widest text-primary">
+                                                    Set {idx + 1}
+                                                </CardDescription>
+                                            </CardHeader>
+                                            <CardContent className="py-4 flex justify-center gap-2">
+                                                {set.map(n => (
+                                                    <LottoBall key={n} number={n} size="sm" />
+                                                ))}
+                                            </CardContent>
+                                        </Card>
+
+                                        {/* Animation slide down the simulation results */}
+                                        {simulationResults && simulationResults[idx] && (
+                                            <div className="grid grid-cols-5 gap-1 text-center text-xs animate-in zoom-in duration-300">
+                                                <div className="bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-200 p-2 rounded-md">
+                                                    <div className="font-bold">1등</div>
+                                                    <div>{simulationResults[idx].rank1}회</div>
+                                                </div>
+                                                <div className="bg-slate-100 dark:bg-slate-800/60 text-slate-700 dark:text-slate-300 p-2 rounded-md">
+                                                    <div className="font-bold">2등</div>
+                                                    <div>{simulationResults[idx].rank2}회</div>
+                                                </div>
+                                                <div className="bg-slate-100 dark:bg-slate-800/60 text-slate-700 dark:text-slate-300 p-2 rounded-md">
+                                                    <div className="font-bold">3등</div>
+                                                    <div>{simulationResults[idx].rank3}회</div>
+                                                </div>
+                                                <div className="bg-slate-100 dark:bg-slate-800/60 text-slate-700 dark:text-slate-300 p-2 rounded-md">
+                                                    <div className="font-bold">4등</div>
+                                                    <div>{simulationResults[idx].rank4}회</div>
+                                                </div>
+                                                <div className="bg-slate-100 dark:bg-slate-800/60 text-slate-700 dark:text-slate-300 p-2 rounded-md">
+                                                    <div className="font-bold">5등</div>
+                                                    <div>{simulationResults[idx].rank5}회</div>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     ) : (
                         <div className="min-h-[200px] flex items-center justify-center border-2 border-dashed border-muted rounded-xl">

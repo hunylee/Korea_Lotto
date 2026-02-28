@@ -1,0 +1,28 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model LottoRound {
+  id             Int      @id @default(autoincrement())
+  drwNo          Int      @unique
+  drwNoDate      String
+  totSellamnt    BigInt
+  firstWinamnt   BigInt
+  firstPrzwnerCo Int
+  drwtNo1        Int
+  drwtNo2        Int
+  drwtNo3        Int
+  drwtNo4        Int
+  drwtNo5        Int
+  drwtNo6        Int
+  bnusNo         Int
+  returnValue    String
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
