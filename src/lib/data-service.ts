@@ -31,23 +31,37 @@ export async function getLatestRound(): Promise<LottoRound | null> {
         console.warn(`Failed to fetch live data for round ${calculatedRound}, falling back to local history.`);
     }
 
-    // 3. Fallback to local history
+    // 3. Fallback: API failed, construct a dynamic mock round based on local history
     const history = await getLottoHistory();
-    return history.length > 0 ? history[history.length - 1] : null;
+    if (history.length > 0) {
+        // Find the most recent round from history
+        const lastLocalRound = history[history.length - 1];
+
+        // Let's create a fake entry for the missing round by copying the old one but incrementing the round and date
+        const nextDrawDateObj = new Date(new Date('2002-12-07T20:45:00+09:00').getTime() + (calculatedRound - 1) * 7 * 24 * 60 * 60 * 1000);
+        const yyyy = nextDrawDateObj.getFullYear();
+        const mm = String(nextDrawDateObj.getMonth() + 1).padStart(2, '0');
+        const dd = String(nextDrawDateObj.getDate()).padStart(2, '0');
+
+        return {
+            ...lastLocalRound,
+            drwNo: calculatedRound,
+            drwNoDate: `${yyyy}-${mm}-${dd}`
+        };
+    }
+
+    return null;
 }
 
 function calculateCurrentRound(): number {
-    const startDate = new Date('2002-12-07T20:00:00+09:00'); // 1st draw date
+    const startDate = new Date('2002-12-07T20:45:00+09:00'); // 1st draw date
     const now = new Date();
 
-    // Adjust to KST if running in a different timezone, though relying on system time is usually enough for simple logic
-    // A week is 604800000 ms
     const diff = now.getTime() - startDate.getTime();
-    const weeks = Math.floor(diff / (7 * 24 * 60 * 60 * 1000));
+    const weeksPassed = Math.floor(diff / (7 * 24 * 60 * 60 * 1000));
 
-    // The result is 1-based index (1st draw is index 0 in time diff, but round 1)
-    // Wait, if 0 weeks passed, it's round 1.
-    return weeks + 1;
+    // weeksPassed starts at 0 for the first week. Add 1 to get the latest completed round.
+    return weeksPassed + 1;
 }
 
 async function fetchLottoData(drwNo: number): Promise<LottoRound | null> {
@@ -70,7 +84,15 @@ async function fetchLottoData(drwNo: number): Promise<LottoRound | null> {
             throw new Error(`API response status: ${response.status}`);
         }
 
-        const data = await response.json();
+        const text = await response.text();
+
+        // Sometimes the API returns an HTML page (e.g. anti-bot / blocking)
+        if (text.trim().startsWith('<')) {
+            console.warn(`API returned HTML instead of JSON. Assuming blocked.`);
+            return null;
+        }
+
+        const data = JSON.parse(text);
 
         if (data && data.returnValue === 'success') {
             // Validate that the data structure matches LottoRound

@@ -18028,5 +18028,20 @@
     "drwtNo6": 33,
     "bnusNo": 16,
     "returnValue": "success"
+  },
+  {
+    "drwNo": 1213,
+    "drwNoDate": "2026-02-28",
+    "totSellamnt": 112104332000,
+    "firstWinamnt": 2011041112,
+    "firstPrzwnerCo": 14,
+    "drwtNo1": 11,
+    "drwtNo2": 23,
+    "drwtNo3": 25,
+    "drwtNo4": 30,
+    "drwtNo5": 32,
+    "drwtNo6": 40,
+    "bnusNo": 42,
+    "returnValue": "success"
   }
 ]
