@@ -13,8 +13,8 @@ export default function GeneratePage() {
     const [isLoading, setIsLoading] = useState(false);
     const [isSimulating, setIsSimulating] = useState(false);
 
-    // Type definition for simulation results
-    type SimulationResult = { rank1: number; rank2: number; rank3: number; rank4: number; rank5: number };
+    // Type definition for simulation results arrays
+    type SimulationResult = { rank1: number[]; rank2: number[]; rank3: number[]; rank4: number[]; rank5: number[] };
     const [simulationResults, setSimulationResults] = useState<SimulationResult[] | null>(null);
 
     const generateNumbers = (strategy: 'random' | 'weighted') => {
@@ -123,27 +123,72 @@ export default function GeneratePage() {
 
                                         {/* Animation slide down the simulation results */}
                                         {simulationResults && simulationResults[idx] && (
-                                            <div className="grid grid-cols-5 gap-1 text-center text-xs animate-in zoom-in duration-300">
-                                                <div className="bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-200 p-2 rounded-md">
-                                                    <div className="font-bold">1등</div>
-                                                    <div>{simulationResults[idx].rank1}회</div>
+                                            <div className="flex flex-col gap-2 mt-2 animate-in zoom-in duration-300">
+                                                <div className="grid grid-cols-5 gap-1 text-center text-xs">
+                                                    <div className="bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-200 p-2 rounded-md flex flex-col items-center justify-center">
+                                                        <div className="font-bold">1등</div>
+                                                        <div>{simulationResults[idx].rank1.length}회</div>
+                                                    </div>
+                                                    <div className="bg-slate-100 dark:bg-slate-800/60 text-slate-700 dark:text-slate-300 p-2 rounded-md flex flex-col items-center justify-center">
+                                                        <div className="font-bold">2등</div>
+                                                        <div>{simulationResults[idx].rank2.length}회</div>
+                                                    </div>
+                                                    <div className="bg-slate-100 dark:bg-slate-800/60 text-slate-700 dark:text-slate-300 p-2 rounded-md flex flex-col items-center justify-center">
+                                                        <div className="font-bold">3등</div>
+                                                        <div>{simulationResults[idx].rank3.length}회</div>
+                                                    </div>
+                                                    <div className="bg-slate-100 dark:bg-slate-800/60 text-slate-700 dark:text-slate-300 p-2 rounded-md flex flex-col items-center justify-center">
+                                                        <div className="font-bold">4등</div>
+                                                        <div>{simulationResults[idx].rank4.length}회</div>
+                                                    </div>
+                                                    <div className="bg-slate-100 dark:bg-slate-800/60 text-slate-700 dark:text-slate-300 p-2 rounded-md flex flex-col items-center justify-center">
+                                                        <div className="font-bold">5등</div>
+                                                        <div>{simulationResults[idx].rank5.length}회</div>
+                                                    </div>
                                                 </div>
-                                                <div className="bg-slate-100 dark:bg-slate-800/60 text-slate-700 dark:text-slate-300 p-2 rounded-md">
-                                                    <div className="font-bold">2등</div>
-                                                    <div>{simulationResults[idx].rank2}회</div>
-                                                </div>
-                                                <div className="bg-slate-100 dark:bg-slate-800/60 text-slate-700 dark:text-slate-300 p-2 rounded-md">
-                                                    <div className="font-bold">3등</div>
-                                                    <div>{simulationResults[idx].rank3}회</div>
-                                                </div>
-                                                <div className="bg-slate-100 dark:bg-slate-800/60 text-slate-700 dark:text-slate-300 p-2 rounded-md">
-                                                    <div className="font-bold">4등</div>
-                                                    <div>{simulationResults[idx].rank4}회</div>
-                                                </div>
-                                                <div className="bg-slate-100 dark:bg-slate-800/60 text-slate-700 dark:text-slate-300 p-2 rounded-md">
-                                                    <div className="font-bold">5등</div>
-                                                    <div>{simulationResults[idx].rank5}회</div>
-                                                </div>
+
+                                                {/* Detailed Winning Rounds Section */}
+                                                {(simulationResults[idx].rank1.length > 0 ||
+                                                    simulationResults[idx].rank2.length > 0 ||
+                                                    simulationResults[idx].rank3.length > 0 ||
+                                                    simulationResults[idx].rank4.length > 0 ||
+                                                    simulationResults[idx].rank5.length > 0) && (
+                                                        <div className="bg-muted/30 rounded-md p-3 text-xs space-y-1 overflow-y-auto max-h-32 border border-border/50">
+                                                            <p className="font-semibold text-muted-foreground mb-2">당첨 회차 상세:</p>
+                                                            {simulationResults[idx].rank1.length > 0 && (
+                                                                <div className="flex gap-2 text-amber-600 dark:text-amber-400">
+                                                                    <span className="font-bold whitespace-nowrap">1등:</span>
+                                                                    <span className="break-words">{simulationResults[idx].rank1.map(r => `${r}회`).join(', ')}</span>
+                                                                </div>
+                                                            )}
+                                                            {simulationResults[idx].rank2.length > 0 && (
+                                                                <div className="flex gap-2">
+                                                                    <span className="font-bold whitespace-nowrap text-slate-600 dark:text-slate-400">2등:</span>
+                                                                    <span className="break-words text-muted-foreground">{simulationResults[idx].rank2.map(r => `${r}회`).join(', ')}</span>
+                                                                </div>
+                                                            )}
+                                                            {simulationResults[idx].rank3.length > 0 && (
+                                                                <div className="flex gap-2">
+                                                                    <span className="font-bold whitespace-nowrap text-slate-600 dark:text-slate-400">3등:</span>
+                                                                    <span className="break-words text-muted-foreground">{simulationResults[idx].rank3.map(r => `${r}회`).join(', ')}</span>
+                                                                </div>
+                                                            )}
+                                                            {simulationResults[idx].rank4.length > 0 && (
+                                                                <div className="flex gap-2">
+                                                                    <span className="font-bold whitespace-nowrap text-slate-600 dark:text-slate-400">4등:</span>
+                                                                    <span className="break-words text-muted-foreground">{simulationResults[idx].rank4.slice(0, 10).map(r => `${r}회`).join(', ')}
+                                                                        {simulationResults[idx].rank4.length > 10 ? ` 외 ${simulationResults[idx].rank4.length - 10}건` : ''}</span>
+                                                                </div>
+                                                            )}
+                                                            {simulationResults[idx].rank5.length > 0 && (
+                                                                <div className="flex gap-2">
+                                                                    <span className="font-bold whitespace-nowrap text-slate-600 dark:text-slate-400">5등:</span>
+                                                                    <span className="break-words text-muted-foreground">{simulationResults[idx].rank5.slice(0, 10).map(r => `${r}회`).join(', ')}
+                                                                        {simulationResults[idx].rank5.length > 10 ? ` 외 ${simulationResults[idx].rank5.length - 10}건` : ''}</span>
+                                                                </div>
+                                                            )}
+                                                        </div>
+                                                    )}
                                             </div>
                                         )}
                                     </div>

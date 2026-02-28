@@ -1,28 +1,23 @@
 'use server';
 
-import { PrismaClient } from '@prisma/client';
-
-// Prevent multiple instances in dev
-const globalForPrisma = globalThis as unknown as {
-    prisma: PrismaClient | undefined
-}
-
-const prisma = globalForPrisma.prisma ?? new PrismaClient()
-
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
+import fs from 'fs';
+import path from 'path';
 
 export async function checkPastWinnings(games: number[][]) {
     try {
-        // Fetch all historical draws
-        const history = await prisma.lottoRound.findMany();
+        // Read directly from the JSON file to avoid Vercel Prisma SQLite serverless issues
+        const jsonPath = path.join(process.cwd(), 'src/data/lotto-history.json');
+        const fileData = fs.readFileSync(jsonPath, 'utf8');
+        const history = JSON.parse(fileData);
 
         // Evaluate each generated game
         const results = games.map(game => {
-            let rank1 = 0;
-            let rank2 = 0;
-            let rank3 = 0;
-            let rank4 = 0;
-            let rank5 = 0;
+            // Store the round numbers where the game won
+            const rank1: number[] = [];
+            const rank2: number[] = [];
+            const rank3: number[] = [];
+            const rank4: number[] = [];
+            const rank5: number[] = [];
 
             for (const round of history) {
                 const winningNumbers = [
@@ -39,15 +34,15 @@ export async function checkPastWinnings(games: number[][]) {
                 }
 
                 if (matchCount === 6) {
-                    rank1++;
+                    rank1.push(round.drwNo);
                 } else if (matchCount === 5 && game.includes(bonusNumber)) {
-                    rank2++;
+                    rank2.push(round.drwNo);
                 } else if (matchCount === 5) {
-                    rank3++;
+                    rank3.push(round.drwNo);
                 } else if (matchCount === 4) {
-                    rank4++;
+                    rank4.push(round.drwNo);
                 } else if (matchCount === 3) {
-                    rank5++;
+                    rank5.push(round.drwNo);
                 }
             }
 
