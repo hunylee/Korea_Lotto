@@ -1,5 +1,5 @@
 
-import { getLatestRound, getLottoHistory } from "@/lib/data-service";
+import { getLatestRound, getLottoHistory, getNextDrawInfo } from "@/lib/data-service";
 import { LottoBall } from "@/components/lotto-ball";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -10,6 +10,7 @@ import { getFrequencyMap, getHotColdNumbers } from "@/lib/statistics";
 export default async function Home() {
   const latestRound = await getLatestRound();
   const history = await getLottoHistory();
+  const nextDraw = getNextDrawInfo();
 
   // Quick Stats
   const hotCold = getHotColdNumbers(history);
@@ -150,14 +151,16 @@ export default async function Home() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex justify-between items-center mt-2">
-                <span className="text-muted-foreground">회차</span>
-                <span className="font-bold text-xl">{latestRound.drwNo + 1}회</span>
+                <span className="text-muted-foreground">회차 ({nextDraw.drwDate})</span>
+                <span className="font-bold text-xl">{nextDraw.drwNo}회</span>
               </div>
               <div className="flex justify-between items-center text-sm">
-                <span className="text-muted-foreground">예상 1등 당첨금</span>
-                <span className="font-mono text-green-400">약 25억+</span>
+                <span className="text-muted-foreground">1등 당첨 확률</span>
+                <span className="font-mono text-green-400">1 / 8,145,060</span>
               </div>
-              <Button className="w-full mt-2" variant="secondary" disabled>준비중</Button>
+              <Button className="w-full mt-2" variant="secondary" asChild>
+                <Link href="/generate">이번 주 번호 생성하기</Link>
+              </Button>
             </CardContent>
           </Card>
 

@@ -97,3 +97,23 @@ async function fetchLottoData(drwNo: number): Promise<LottoRound | null> {
     }
     return null;
 }
+
+export function getNextDrawInfo(): { drwNo: number, drwDate: string } {
+    const startDate = new Date('2002-12-07T20:45:00+09:00'); // 1st draw date
+    const now = new Date();
+
+    const diff = now.getTime() - startDate.getTime();
+    const weeksPassed = Math.floor(diff / (7 * 24 * 60 * 60 * 1000));
+
+    const nextDrwNo = weeksPassed + 2;
+
+    const nextDrawDateObj = new Date(startDate.getTime() + (weeksPassed + 1) * 7 * 24 * 60 * 60 * 1000);
+    const yyyy = nextDrawDateObj.getFullYear();
+    const mm = String(nextDrawDateObj.getMonth() + 1).padStart(2, '0');
+    const dd = String(nextDrawDateObj.getDate()).padStart(2, '0');
+
+    return {
+        drwNo: nextDrwNo,
+        drwDate: `${yyyy}.${mm}.${dd}`
+    };
+}
