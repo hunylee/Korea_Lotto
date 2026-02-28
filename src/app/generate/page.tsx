@@ -13,8 +13,8 @@ export default function GeneratePage() {
     const [isLoading, setIsLoading] = useState(false);
     const [isSimulating, setIsSimulating] = useState(false);
 
-    // Type definition for simulation results arrays
-    type SimulationResult = { rank1: number[]; rank2: number[]; rank3: number[]; rank4: number[]; rank5: number[] };
+    // Type definition for simulation results arrays containing formatted strings
+    type SimulationResult = { rank1: string[]; rank2: string[]; rank3: string[]; rank4: string[]; rank5: string[] };
     const [simulationResults, setSimulationResults] = useState<SimulationResult[] | null>(null);
 
     const generateNumbers = (strategy: 'random' | 'weighted') => {
@@ -148,47 +148,54 @@ export default function GeneratePage() {
                                                 </div>
 
                                                 {/* Detailed Winning Rounds Section */}
-                                                {(simulationResults[idx].rank1.length > 0 ||
-                                                    simulationResults[idx].rank2.length > 0 ||
-                                                    simulationResults[idx].rank3.length > 0 ||
-                                                    simulationResults[idx].rank4.length > 0 ||
-                                                    simulationResults[idx].rank5.length > 0) && (
-                                                        <div className="bg-muted/30 rounded-md p-3 text-xs space-y-1 overflow-y-auto max-h-32 border border-border/50">
-                                                            <p className="font-semibold text-muted-foreground mb-2">당첨 회차 상세:</p>
-                                                            {simulationResults[idx].rank1.length > 0 && (
-                                                                <div className="flex gap-2 text-amber-600 dark:text-amber-400">
-                                                                    <span className="font-bold whitespace-nowrap">1등:</span>
-                                                                    <span className="break-words">{simulationResults[idx].rank1.map(r => `${r}회`).join(', ')}</span>
-                                                                </div>
-                                                            )}
-                                                            {simulationResults[idx].rank2.length > 0 && (
-                                                                <div className="flex gap-2">
-                                                                    <span className="font-bold whitespace-nowrap text-slate-600 dark:text-slate-400">2등:</span>
-                                                                    <span className="break-words text-muted-foreground">{simulationResults[idx].rank2.map(r => `${r}회`).join(', ')}</span>
-                                                                </div>
-                                                            )}
-                                                            {simulationResults[idx].rank3.length > 0 && (
-                                                                <div className="flex gap-2">
-                                                                    <span className="font-bold whitespace-nowrap text-slate-600 dark:text-slate-400">3등:</span>
-                                                                    <span className="break-words text-muted-foreground">{simulationResults[idx].rank3.map(r => `${r}회`).join(', ')}</span>
-                                                                </div>
-                                                            )}
-                                                            {simulationResults[idx].rank4.length > 0 && (
-                                                                <div className="flex gap-2">
-                                                                    <span className="font-bold whitespace-nowrap text-slate-600 dark:text-slate-400">4등:</span>
-                                                                    <span className="break-words text-muted-foreground">{simulationResults[idx].rank4.slice(0, 10).map(r => `${r}회`).join(', ')}
-                                                                        {simulationResults[idx].rank4.length > 10 ? ` 외 ${simulationResults[idx].rank4.length - 10}건` : ''}</span>
-                                                                </div>
-                                                            )}
-                                                            {simulationResults[idx].rank5.length > 0 && (
-                                                                <div className="flex gap-2">
-                                                                    <span className="font-bold whitespace-nowrap text-slate-600 dark:text-slate-400">5등:</span>
-                                                                    <span className="break-words text-muted-foreground">{simulationResults[idx].rank5.slice(0, 10).map(r => `${r}회`).join(', ')}
-                                                                        {simulationResults[idx].rank5.length > 10 ? ` 외 ${simulationResults[idx].rank5.length - 10}건` : ''}</span>
-                                                                </div>
-                                                            )}
+                                                <div className="bg-muted/30 rounded-md p-3 text-xs space-y-1 overflow-y-auto max-h-48 border border-border/50 text-left">
+                                                    <p className="font-semibold text-muted-foreground mb-2">당첨 회차 및 번호 상세:</p>
+
+                                                    {/* 1등과 2등은 당첨 내역이 없어도 명시적으로 표시하여 유저가 확인할 수 있도록 함 */}
+                                                    <div className="flex gap-2 text-amber-600 dark:text-amber-400">
+                                                        <span className="font-bold whitespace-nowrap">1등:</span>
+                                                        <span className="break-words">
+                                                            {simulationResults[idx].rank1.length > 0
+                                                                ? simulationResults[idx].rank1.map((r, i) => <div key={i}>{r}</div>)
+                                                                : '당첨 내역 없음'}
+                                                        </span>
+                                                    </div>
+                                                    <div className="flex gap-2 text-slate-600 dark:text-slate-400">
+                                                        <span className="font-bold whitespace-nowrap">2등:</span>
+                                                        <span className="break-words text-muted-foreground">
+                                                            {simulationResults[idx].rank2.length > 0
+                                                                ? simulationResults[idx].rank2.map((r, i) => <div key={i}>{r}</div>)
+                                                                : '당첨 내역 없음'}
+                                                        </span>
+                                                    </div>
+
+                                                    {simulationResults[idx].rank3.length > 0 && (
+                                                        <div className="flex gap-2">
+                                                            <span className="font-bold whitespace-nowrap text-slate-600 dark:text-slate-400">3등:</span>
+                                                            <span className="break-words text-muted-foreground flex flex-col">
+                                                                {simulationResults[idx].rank3.map((r, i) => <span key={i}>{r}</span>)}
+                                                            </span>
                                                         </div>
                                                     )}
+                                                    {simulationResults[idx].rank4.length > 0 && (
+                                                        <div className="flex gap-2">
+                                                            <span className="font-bold whitespace-nowrap text-slate-600 dark:text-slate-400">4등:</span>
+                                                            <span className="break-words text-muted-foreground flex flex-col">
+                                                                {simulationResults[idx].rank4.slice(0, 5).map((r, i) => <span key={i}>{r}</span>)}
+                                                                {simulationResults[idx].rank4.length > 5 && <span>...외 {simulationResults[idx].rank4.length - 5}건</span>}
+                                                            </span>
+                                                        </div>
+                                                    )}
+                                                    {simulationResults[idx].rank5.length > 0 && (
+                                                        <div className="flex gap-2">
+                                                            <span className="font-bold whitespace-nowrap text-slate-600 dark:text-slate-400">5등:</span>
+                                                            <span className="break-words text-muted-foreground flex flex-col">
+                                                                {simulationResults[idx].rank5.slice(0, 5).map((r, i) => <span key={i}>{r}</span>)}
+                                                                {simulationResults[idx].rank5.length > 5 && <span>...외 {simulationResults[idx].rank5.length - 5}건</span>}
+                                                            </span>
+                                                        </div>
+                                                    )}
+                                                </div>
                                             </div>
                                         )}
                                     </div>

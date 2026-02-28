@@ -12,12 +12,12 @@ export async function checkPastWinnings(games: number[][]) {
 
         // Evaluate each generated game
         const results = games.map(game => {
-            // Store the round numbers where the game won
-            const rank1: number[] = [];
-            const rank2: number[] = [];
-            const rank3: number[] = [];
-            const rank4: number[] = [];
-            const rank5: number[] = [];
+            // Store the formatted winning history strings (Round + Numbers)
+            const rank1: string[] = [];
+            const rank2: string[] = [];
+            const rank3: string[] = [];
+            const rank4: string[] = [];
+            const rank5: string[] = [];
 
             for (const round of history) {
                 const winningNumbers = [
@@ -33,16 +33,18 @@ export async function checkPastWinnings(games: number[][]) {
                     }
                 }
 
+                const matchString = `${round.drwNo}회 (${winningNumbers.join(', ')} + ${bonusNumber})`;
+
                 if (matchCount === 6) {
-                    rank1.push(round.drwNo);
+                    rank1.push(matchString);
                 } else if (matchCount === 5 && game.includes(bonusNumber)) {
-                    rank2.push(round.drwNo);
+                    rank2.push(matchString);
                 } else if (matchCount === 5) {
-                    rank3.push(round.drwNo);
+                    rank3.push(matchString);
                 } else if (matchCount === 4) {
-                    rank4.push(round.drwNo);
+                    rank4.push(matchString);
                 } else if (matchCount === 3) {
-                    rank5.push(round.drwNo);
+                    rank5.push(matchString);
                 }
             }
 
