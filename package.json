@@ -12,6 +12,7 @@
   "dependencies": {
     "@dataconnect/generated": "file:src/dataconnect-generated",
     "@firebase/data-connect": "^0.4.0",
+    "@lotto/dataconnect": "file:src/lib/dataconnect",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "firebase": "^12.10.0",

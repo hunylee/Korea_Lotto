@@ -1,0 +1,207 @@
+[debug] [2026-03-02T04:25:31.930Z] ----------------------------------------------------------------------
+[debug] [2026-03-02T04:25:31.933Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\hunyl\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only dataconnect --debug
+[debug] [2026-03-02T04:25:31.933Z] CLI Version:   15.8.0
+[debug] [2026-03-02T04:25:31.933Z] Platform:      win32
+[debug] [2026-03-02T04:25:31.933Z] Node Version:  v24.14.0
+[debug] [2026-03-02T04:25:31.933Z] Time:          Mon Mar 02 2026 13:25:31 GMT+0900 (한국 표준시)
+[debug] [2026-03-02T04:25:31.934Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-03-02T04:25:33.493Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-03-02T04:25:33.493Z] > authorizing via signed-in user (hunylee0@gmail.com)
+[debug] [2026-03-02T04:25:33.494Z] [iam] checking project korea-lotto-db-6505 for permissions ["cloudsql.databases.create","cloudsql.databases.update","cloudsql.instances.connect","cloudsql.instances.create","cloudsql.instances.get","cloudsql.instances.list","cloudsql.instances.update","cloudsql.users.create","firebase.projects.get","firebasedataconnect.connectors.create","firebasedataconnect.connectors.delete","firebasedataconnect.connectors.list","firebasedataconnect.connectors.update","firebasedataconnect.operations.get","firebasedataconnect.schemas.create","firebasedataconnect.schemas.delete","firebasedataconnect.schemas.list","firebasedataconnect.schemas.update","firebasedataconnect.services.create","firebasedataconnect.services.delete","firebasedataconnect.services.list","firebasedataconnect.services.update"]
+[debug] [2026-03-02T04:25:33.494Z] Checked if tokens are valid: true, expires at: 1772428983593
+[debug] [2026-03-02T04:25:33.495Z] Checked if tokens are valid: true, expires at: 1772428983593
+[debug] [2026-03-02T04:25:33.495Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/korea-lotto-db-6505:testIamPermissions [none]
+[debug] [2026-03-02T04:25:33.495Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/korea-lotto-db-6505:testIamPermissions  x-goog-user-project=korea-lotto-db-6505
+[debug] [2026-03-02T04:25:33.495Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/korea-lotto-db-6505:testIamPermissions {"permissions":["cloudsql.databases.create","cloudsql.databases.update","cloudsql.instances.connect","cloudsql.instances.create","cloudsql.instances.get","cloudsql.instances.list","cloudsql.instances.update","cloudsql.users.create","firebase.projects.get","firebasedataconnect.connectors.create","firebasedataconnect.connectors.delete","firebasedataconnect.connectors.list","firebasedataconnect.connectors.update","firebasedataconnect.operations.get","firebasedataconnect.schemas.create","firebasedataconnect.schemas.delete","firebasedataconnect.schemas.list","firebasedataconnect.schemas.update","firebasedataconnect.services.create","firebasedataconnect.services.delete","firebasedataconnect.services.list","firebasedataconnect.services.update"]}
+[debug] [2026-03-02T04:25:33.726Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/korea-lotto-db-6505:testIamPermissions 200
+[debug] [2026-03-02T04:25:33.726Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/korea-lotto-db-6505:testIamPermissions {"permissions":["cloudsql.databases.create","cloudsql.databases.update","cloudsql.instances.connect","cloudsql.instances.create","cloudsql.instances.get","cloudsql.instances.list","cloudsql.instances.update","cloudsql.users.create","firebase.projects.get","firebasedataconnect.connectors.create","firebasedataconnect.connectors.delete","firebasedataconnect.connectors.list","firebasedataconnect.connectors.update","firebasedataconnect.operations.get","firebasedataconnect.schemas.create","firebasedataconnect.schemas.delete","firebasedataconnect.schemas.list","firebasedataconnect.schemas.update","firebasedataconnect.services.create","firebasedataconnect.services.delete","firebasedataconnect.services.list","firebasedataconnect.services.update"]}
+[info] 
+[info] === Deploying to 'korea-lotto-db-6505'...
+[info] 
+[info] i  deploying dataconnect 
+[info] i  dataconnect: ensuring required API firebasedataconnect.googleapis.com is enabled... 
+[info] i  dataconnect: ensuring required API sqladmin.googleapis.com is enabled... 
+[debug] [2026-03-02T04:25:33.744Z] Checked if tokens are valid: true, expires at: 1772428983593
+[debug] [2026-03-02T04:25:33.745Z] Checked if tokens are valid: true, expires at: 1772428983593
+[debug] [2026-03-02T04:25:33.745Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/korea-lotto-db-6505/billingInfo [none]
+[debug] [2026-03-02T04:25:35.132Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/korea-lotto-db-6505/billingInfo 200
+[debug] [2026-03-02T04:25:35.133Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/korea-lotto-db-6505/billingInfo {"name":"projects/korea-lotto-db-6505/billingInfo","projectId":"korea-lotto-db-6505","billingAccountName":"","billingEnabled":false}
+[debug] [2026-03-02T04:25:35.133Z] Checked if tokens are valid: true, expires at: 1772428983593
+[debug] [2026-03-02T04:25:35.133Z] Checked if tokens are valid: true, expires at: 1772428983593
+[debug] [2026-03-02T04:25:35.133Z] >>> [apiv2][query] GET https://mobilesdk-pa.googleapis.com/v1/accessmanagement/tos:getStatus [none]
+[debug] [2026-03-02T04:25:35.518Z] <<< [apiv2][status] GET https://mobilesdk-pa.googleapis.com/v1/accessmanagement/tos:getStatus 200
+[debug] [2026-03-02T04:25:35.518Z] <<< [apiv2][body] GET https://mobilesdk-pa.googleapis.com/v1/accessmanagement/tos:getStatus {"overallStatus":"ACCEPTED","uTosStatus":{"tos":{"id":"firebase","tosId":"FIREBASE_UNIVERSAL"},"status":"ACCEPTED","acceptedVersion":7},"childTosStatus":[{"tos":{"id":"cloud","tosId":"CLOUD_PLATFORM"},"status":"ACCEPTED","acceptedVersion":39},{"tos":{"id":"firebase_b2b","tosId":"FIREBASE_B2B"},"status":"ACCEPTED","acceptedVersion":1},{"tos":{"id":"universal","tosId":"GOOGLE_APIS"},"status":"ACCEPTED","acceptedVersion":6}],"termsUrl":"https://firebase.google.com/terms","perServiceStatus":[{"tosId":"APP_CHECK","serviceStatus":{"tos":{"id":"app_check","tosId":"APP_CHECK"},"status":"ACCEPTED","acceptedVersion":3}},{"tosId":"APP_HOSTING_TOS","serviceStatus":{"tos":{"id":"app_hosting","tosId":"APP_HOSTING_TOS"},"status":"ACCEPTED","acceptedVersion":3}},{"tosId":"FIREBASE_DATA_CONNECT","serviceStatus":{"tos":{"id":"data_connect","tosId":"FIREBASE_DATA_CONNECT"},"status":"ACCEPTED","acceptedVersion":3}},{"tosId":"CORE_APPS","serviceStatus":{"tos":{"id":"core_apps","tosId":"CORE_APPS"},"status":"ACCEPTED","acceptedVersion":1}},{"tosId":"VERTEX_AI_IN_FIREBASE","serviceStatus":{"tos":{"id":"vertex_ai_in_firebase","tosId":"VERTEX_AI_IN_FIREBASE"},"status":"ACCEPTED","acceptedVersion":2}},{"tosId":"FIREBASE_CRASHLYTICS_APP_DISTRIBUTION","serviceStatus":{"tos":{"id":"firebase_crashlytics_app_distribution","tosId":"FIREBASE_CRASHLYTICS_APP_DISTRIBUTION"},"status":"ACCEPTED","acceptedVersion":4}},{"tosId":"GENERATIVE_LANGUAGE","serviceStatus":{"tos":{"id":"generative-language-api","tosId":"GENERATIVE_LANGUAGE"},"status":"ACCEPTED","acceptedVersion":3}}]}
+[debug] [2026-03-02T04:25:35.519Z] defaultcredentials: writing to file C:\Users\hunyl\AppData\Roaming\firebase\hunylee0_gmail_com_application_default_credentials.json
+[debug] [2026-03-02T04:25:37.189Z] W0302 13:25:37.140750   21860 deployed.go:102] resource is not found: https://firebasedataconnect.googleapis.com/v1/projects/korea-lotto-db-6505/locations/us-east4/services/korealotto/connectors/korealotto-connector
+I0302 13:25:37.179378   21860 control.go:100] [projects/emulator/locations/emulator/services/korealotto 9e2c] UpdateResources(): done
+Main schema: sources: schema\schema.gql [324B] 
+Connector "korealotto-connector": sources: example\mutations.gql [731B] example\queries.gql [1030B] 
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"W0302 13:25:37.140750   21860 deployed.go:102] resource is not found: https://firebasedataconnect.googleapis.com/v1/projects/korea-lotto-db-6505/locations/us-east4/services/korealotto/connectors/korealotto-connector\nI0302 13:25:37.179378   21860 control.go:100] [projects/emulator/locations/emulator/services/korealotto 9e2c] UpdateResources(): done\nMain schema: sources: schema\\schema.gql [324B] \nConnector \"korealotto-connector\": sources: example\\mutations.gql [731B] example\\queries.gql [1030B] \n"}}
+[warn] !  dataconnect: There are existing insecure operations or changes in your schema or connectors that may cause unexpected behavior in your existing applications:
+┌────────────────────┬──────────────────────────────────────────────────┬──────────────────────────────────────────────────┬──────────────────────────────────────────────────┐
+│ Type               │ Issue                                            │ Workaround                                       │ Reason                                           │
+├────────────────────┼──────────────────────────────────────────────────┼──────────────────────────────────────────────────┼──────────────────────────────────────────────────┤
+│ INSECURE           │ example\queries.gql:42: On                       │ Add an insecure reason to the operation.         │ Publicly accessible operations are considered    │
+│                    │ query.GetLatestLottoRound: operation             │                                                  │ insecure. If this operation is safe to expose to │
+│                    │ "GetLatestLottoRound" is publicly accessible to  │                                                  │ the public, add an insecure reason to the @auth  │
+│                    │ all clients                                      │                                                  │ directive to suppress this warning.              │
+├────────────────────┼──────────────────────────────────────────────────┼──────────────────────────────────────────────────┼──────────────────────────────────────────────────┤
+│ INSECURE           │ example\queries.gql:22: On                       │ Add an insecure reason to the operation.         │ Publicly accessible operations are considered    │
+│                    │ query.GetLottoRoundByNo: operation               │                                                  │ insecure. If this operation is safe to expose to │
+│                    │ "GetLottoRoundByNo" is publicly accessible to    │                                                  │ the public, add an insecure reason to the @auth  │
+│                    │ all clients                                      │                                                  │ directive to suppress this warning.              │
+├────────────────────┼──────────────────────────────────────────────────┼──────────────────────────────────────────────────┼──────────────────────────────────────────────────┤
+│ INSECURE           │ example\queries.gql:2: On query.ListLottoRounds: │ Add an insecure reason to the operation.         │ Publicly accessible operations are considered    │
+│                    │ operation "ListLottoRounds" is publicly          │                                                  │ insecure. If this operation is safe to expose to │
+│                    │ accessible to all clients                        │                                                  │ the public, add an insecure reason to the @auth  │
+│                    │                                                  │                                                  │ directive to suppress this warning.              │
+├────────────────────┼──────────────────────────────────────────────────┼──────────────────────────────────────────────────┼──────────────────────────────────────────────────┤
+│ INSECURE           │ example\mutations.gql:2: On                      │ Add an insecure reason to the operation.         │ Publicly accessible operations are considered    │
+│                    │ mutation.UpsertLottoRound: operation             │                                                  │ insecure. If this operation is safe to expose to │
+│                    │ "UpsertLottoRound" is publicly accessible to all │                                                  │ the public, add an insecure reason to the @auth  │
+│                    │ clients                                          │                                                  │ directive to suppress this warning.              │
+└────────────────────┴──────────────────────────────────────────────────┴──────────────────────────────────────────────────┴──────────────────────────────────────────────────┘ 
+[info] i  dataconnect: Successfully compiled schema and connectors 
+[debug] [2026-03-02T04:26:04.307Z] {
+  "serviceInfos": [
+    {
+      "serviceName": "projects/korea-lotto-db-6505/locations/us-east4/services/korealotto",
+      "sourceDirectory": "C:\\Korea_Lotto\\dataconnect",
+      "schemas": [
+        {
+          "name": "projects/korea-lotto-db-6505/locations/us-east4/services/korealotto/schemas/main",
+          "datasources": [
+            {
+              "postgresql": {
+                "database": "fdcdb",
+                "cloudSql": {
+                  "instance": "projects/korea-lotto-db-6505/locations/us-east4/instances/korealotto-fdc"
+                }
+              }
+            }
+          ],
+          "source": {
+            "files": [
+              {
+                "path": "schema.gql",
+                "content": "type LottoRound @table(key: \"drwNo\") {\n  drwNo: Int!\n  drwNoDate: String!\n  totSellamnt: Int!\n  firstWinamnt: Int!\n  firstPrzwnerCo: Int!\n  drwtNo1: Int!\n  drwtNo2: Int!\n  drwtNo3: Int!\n  drwtNo4: Int!\n  drwtNo5: Int!\n  drwtNo6: Int!\n  bnusNo: Int!\n  returnValue: String!\n  createdAt: Date! @default(expr: \"request.time\")\n}\n"
+              }
+            ]
+          }
+        }
+      ],
+      "dataConnectYaml": {
+        "specVersion": "v1",
+        "serviceId": "korealotto",
+        "location": "us-east4",
+        "schema": {
+          "source": "./schema",
+          "datasource": {
+            "postgresql": {
+              "database": "fdcdb",
+              "cloudSql": {
+                "instanceId": "korealotto-fdc"
+              }
+            }
+          }
+        },
+        "connectorDirs": [
+          "./example"
+        ]
+      },
+      "connectorInfo": [
+        {
+          "directory": "C:\\Korea_Lotto\\dataconnect\\example",
+          "connectorYaml": {
+            "connectorId": "korealotto-connector",
+            "generate": {
+              "javascriptSdk": {
+                "outputDir": "../../src/lib/dataconnect",
+                "package": "@lotto/dataconnect",
+                "packageJsonDir": "../../"
+              }
+            }
+          },
+          "connector": {
+            "name": "projects/korea-lotto-db-6505/locations/us-east4/services/korealotto/connectors/korealotto-connector",
+            "source": {
+              "files": [
+                {
+                  "path": "queries.gql",
+                  "content": "# List all lotto rounds, sorted by draw number descending\nquery ListLottoRounds @auth(level: PUBLIC) {\n  lottoRounds(orderBy: [{ drwNo: DESC }]) {\n    drwNo\n    drwNoDate\n    totSellamnt\n    firstWinamnt\n    firstPrzwnerCo\n    drwtNo1\n    drwtNo2\n    drwtNo3\n    drwtNo4\n    drwtNo5\n    drwtNo6\n    bnusNo\n    returnValue\n    createdAt\n  }\n}\n\n# Get a specific lotto round by its draw number\nquery GetLottoRoundByNo($drwNo: Int!) @auth(level: PUBLIC) {\n  lottoRound(key: { drwNo: $drwNo }) {\n    drwNo\n    drwNoDate\n    totSellamnt\n    firstWinamnt\n    firstPrzwnerCo\n    drwtNo1\n    drwtNo2\n    drwtNo3\n    drwtNo4\n    drwtNo5\n    drwtNo6\n    bnusNo\n    returnValue\n    createdAt\n  }\n}\n\n# Get the latest lotto round (highest drwNo)\nquery GetLatestLottoRound @auth(level: PUBLIC) {\n  lottoRounds(orderBy: [{ drwNo: DESC }], limit: 1) {\n    drwNo\n    drwNoDate\n    totSellamnt\n    firstWinamnt\n    firstPrzwnerCo\n    drwtNo1\n    drwtNo2\n    drwtNo3\n    drwtNo4\n    drwtNo5\n    drwtNo6\n    bnusNo\n    returnValue\n    createdAt\n  }\n}\n"
+                },
+                {
+                  "path": "mutations.gql",
+                  "content": "# Insert or update a LottoRound entry\nmutation UpsertLottoRound(\n  $drwNo: Int!\n  $drwNoDate: String!\n  $totSellamnt: Int!\n  $firstWinamnt: Int!\n  $firstPrzwnerCo: Int!\n  $drwtNo1: Int!\n  $drwtNo2: Int!\n  $drwtNo3: Int!\n  $drwtNo4: Int!\n  $drwtNo5: Int!\n  $drwtNo6: Int!\n  $bnusNo: Int!\n  $returnValue: String!\n) @auth(level: PUBLIC) {\n  lottoRound_upsert(\n    data: {\n      drwNo: $drwNo\n      drwNoDate: $drwNoDate\n      totSellamnt: $totSellamnt\n      firstWinamnt: $firstWinamnt\n      firstPrzwnerCo: $firstPrzwnerCo\n      drwtNo1: $drwtNo1\n      drwtNo2: $drwtNo2\n      drwtNo3: $drwtNo3\n      drwtNo4: $drwtNo4\n      drwtNo5: $drwtNo5\n      drwtNo6: $drwtNo6\n      bnusNo: $bnusNo\n      returnValue: $returnValue\n    }\n  )\n}\n"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "deploymentMetadata": {
+        "primaryDataSource": {
+          "postgres": {
+            "requiredExtensions": null
+          }
+        }
+      }
+    }
+  ],
+  "deployStats": {
+    "numBuildErrors": 0,
+    "numBuildWarnings": {},
+    "numServiceCreated": 0,
+    "numServiceDeleted": 0,
+    "numSchemaMigrated": 0,
+    "numConnectorUpdatedBeforeSchema": 0,
+    "numConnectorUpdatedAfterSchema": 0,
+    "numSchemaSkippedDueToPendingCreate": 0,
+    "numSchemaSqlDiffs": 0,
+    "numSchemaInvalidConnectors": 0,
+    "missingBilling": true
+  }
+}
+[debug] [2026-03-02T04:26:04.307Z] Checked if tokens are valid: true, expires at: 1772428983593
+[debug] [2026-03-02T04:26:04.307Z] Checked if tokens are valid: true, expires at: 1772428983593
+[debug] [2026-03-02T04:26:04.308Z] >>> [apiv2][query] GET https://firebasedataconnect.googleapis.com/v1/projects/korea-lotto-db-6505/locations/-/services [none]
+[debug] [2026-03-02T04:26:05.613Z] <<< [apiv2][status] GET https://firebasedataconnect.googleapis.com/v1/projects/korea-lotto-db-6505/locations/-/services 200
+[debug] [2026-03-02T04:26:05.614Z] <<< [apiv2][body] GET https://firebasedataconnect.googleapis.com/v1/projects/korea-lotto-db-6505/locations/-/services {"services":[{"name":"projects/korea-lotto-db-6505/locations/us-east4/services/korealotto","createTime":"2026-03-02T04:24:35.780560337Z","updateTime":"2026-03-02T04:25:49.110080826Z","uid":"21d0d8ef-3717-43ee-ac02-d387f2dd36a1","reconciling":false,"etag":"52uow1DEbRqKMnahfl6H4pssW5A88BTu3_rDAwlcQeI"}]}
+[info] i  dataconnect: Checking for CloudSQL resources... 
+[debug] [2026-03-02T04:26:05.614Z] Checked if tokens are valid: true, expires at: 1772428983593
+[debug] [2026-03-02T04:26:05.614Z] Checked if tokens are valid: true, expires at: 1772428983593
+[debug] [2026-03-02T04:26:05.615Z] >>> [apiv2][query] GET https://sqladmin.googleapis.com/v1/projects/korea-lotto-db-6505/instances/korealotto-fdc [none]
+[debug] [2026-03-02T04:26:05.960Z] <<< [apiv2][status] GET https://sqladmin.googleapis.com/v1/projects/korea-lotto-db-6505/instances/korealotto-fdc 404
+[debug] [2026-03-02T04:26:05.960Z] <<< [apiv2][body] GET https://sqladmin.googleapis.com/v1/projects/korea-lotto-db-6505/instances/korealotto-fdc {"error":{"code":404,"message":"The Cloud SQL instance does not exist.","errors":[{"message":"The Cloud SQL instance does not exist.","domain":"global","reason":"instanceDoesNotExist"}]}}
+[debug] [2026-03-02T04:26:05.961Z] Checked if tokens are valid: true, expires at: 1772428983593
+[debug] [2026-03-02T04:26:05.961Z] Checked if tokens are valid: true, expires at: 1772428983593
+[debug] [2026-03-02T04:26:05.961Z] >>> [apiv2][query] GET https://monitoring.googleapis.com/v3/projects/korea-lotto-db-6505/timeSeries/ filter=metric.type%3D%22serviceruntime.googleapis.com%2Fquota%2Fallocation%2Fusage%22+AND+metric.label.quota_metric+%3D+%22sqladmin.googleapis.com%2Ffdc_lifetime_free_trial_per_project%22&interval.endTime=2026-03-02T04%3A26%3A05.961Z&interval.startTime=2026-02-23T04%3A26%3A05.961Z
+[debug] [2026-03-02T04:26:07.178Z] <<< [apiv2][status] GET https://monitoring.googleapis.com/v3/projects/korea-lotto-db-6505/timeSeries/ 200
+[debug] [2026-03-02T04:26:07.178Z] <<< [apiv2][body] GET https://monitoring.googleapis.com/v3/projects/korea-lotto-db-6505/timeSeries/ {"unit":"1"}
+[debug] [2026-03-02T04:26:07.178Z] Checked if tokens are valid: true, expires at: 1772428983593
+[debug] [2026-03-02T04:26:07.178Z] Checked if tokens are valid: true, expires at: 1772428983593
+[debug] [2026-03-02T04:26:07.178Z] >>> [apiv2][query] POST https://sqladmin.googleapis.com/v1/projects/korea-lotto-db-6505/instances [none]
+[debug] [2026-03-02T04:26:07.178Z] >>> [apiv2][body] POST https://sqladmin.googleapis.com/v1/projects/korea-lotto-db-6505/instances {"name":"korealotto-fdc","region":"us-east4","databaseVersion":"POSTGRES_17","settings":{"tier":"db-f1-micro","edition":"ENTERPRISE","ipConfiguration":{"authorizedNetworks":[]},"enableGoogleMlIntegration":false,"databaseFlags":[{"name":"cloudsql.iam_authentication","value":"on"}],"storageAutoResize":false,"userLabels":{"firebase-data-connect":"ft"},"insightsConfig":{"queryInsightsEnabled":true,"queryPlansPerMinute":5,"queryStringLength":1024}}}
+[debug] [2026-03-02T04:26:08.856Z] <<< [apiv2][status] POST https://sqladmin.googleapis.com/v1/projects/korea-lotto-db-6505/instances 403
+[debug] [2026-03-02T04:26:08.856Z] <<< [apiv2][body] POST https://sqladmin.googleapis.com/v1/projects/korea-lotto-db-6505/instances {"error":{"code":403,"message":"The billing account is not in good standing; therefore no new instance can be created.","errors":[{"message":"The billing account is not in good standing; therefore no new instance can be created.","domain":"global","reason":"invalidBillingAccountState"}]}}
+[error] 
+[error] Error: Request to https://sqladmin.googleapis.com/v1/projects/korea-lotto-db-6505/instances had HTTP Error: 403, The billing account is not in good standing; therefore no new instance can be created.
+[debug] [2026-03-02T04:26:09.052Z] Error Context: {
+  "body": {
+    "error": {
+      "code": 403,
+      "message": "The billing account is not in good standing; therefore no new instance can be created.",
+      "errors": [
+        {
+          "message": "The billing account is not in good standing; therefore no new instance can be created.",
+          "domain": "global",
+          "reason": "invalidBillingAccountState"
+        }
+      ]
+    }
+  },
+  "response": {
+    "statusCode": 403
+  }
+}

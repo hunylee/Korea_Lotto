@@ -1,17 +1,15 @@
-
-import fs from 'fs';
-import path from 'path';
 import { LottoRound } from './statistics';
-
-const DATA_FILE_PATH = path.join(process.cwd(), 'src', 'data', 'lotto-history.json');
+import { listLottoRounds, getLatestLottoRound } from './dataconnect';
 
 export async function getLottoHistory(): Promise<LottoRound[]> {
     try {
-        const fileContents = await fs.promises.readFile(DATA_FILE_PATH, 'utf-8');
-        const data = JSON.parse(fileContents);
-        return data;
+        const { data } = await listLottoRounds();
+        // The API returns them ordered by drwNo DESC usually based on query, we might need to sort ASC if UI expects it.
+        // Let's sort ASC by drwNo to match previous JSON behavior.
+        const sorted = [...data.lottoRounds].sort((a, b) => a.drwNo - b.drwNo);
+        return sorted as unknown as LottoRound[];
     } catch (error) {
-        console.error("Failed to load lotto history:", error);
+        console.error("Failed to load lotto history from Data Connect:", error);
         return [];
     }
 }
@@ -25,29 +23,32 @@ export async function getLatestRound(): Promise<LottoRound | null> {
     try {
         const liveData = await fetchLottoData(calculatedRound);
         if (liveData) {
-            return liveData;
+            return liveData as unknown as LottoRound;
         }
     } catch (e) {
-        console.warn(`Failed to fetch live data for round ${calculatedRound}, falling back to local history.`);
+        console.warn(`Failed to fetch live data for round ${calculatedRound}, falling back to DB history.`);
     }
 
-    // 3. Fallback: API failed, construct a dynamic mock round based on local history
-    const history = await getLottoHistory();
-    if (history.length > 0) {
-        // Find the most recent round from history
-        const lastLocalRound = history[history.length - 1];
+    // 3. Fallback: API failed, construct a dynamic mock round based on DB history
+    try {
+        const { data } = await getLatestLottoRound();
+        if (data && data.lottoRounds.length > 0) {
+            const lastLocalRound = data.lottoRounds[0];
 
-        // Let's create a fake entry for the missing round by copying the old one but incrementing the round and date
-        const nextDrawDateObj = new Date(new Date('2002-12-07T20:45:00+09:00').getTime() + (calculatedRound - 1) * 7 * 24 * 60 * 60 * 1000);
-        const yyyy = nextDrawDateObj.getFullYear();
-        const mm = String(nextDrawDateObj.getMonth() + 1).padStart(2, '0');
-        const dd = String(nextDrawDateObj.getDate()).padStart(2, '0');
+            // Let's create a fake entry for the missing round by copying the old one but incrementing the round and date
+            const nextDrawDateObj = new Date(new Date('2002-12-07T20:45:00+09:00').getTime() + (calculatedRound - 1) * 7 * 24 * 60 * 60 * 1000);
+            const yyyy = nextDrawDateObj.getFullYear();
+            const mm = String(nextDrawDateObj.getMonth() + 1).padStart(2, '0');
+            const dd = String(nextDrawDateObj.getDate()).padStart(2, '0');
 
-        return {
-            ...lastLocalRound,
-            drwNo: calculatedRound,
-            drwNoDate: `${yyyy}-${mm}-${dd}`
-        };
+            return {
+                ...lastLocalRound,
+                drwNo: calculatedRound,
+                drwNoDate: `${yyyy}-${mm}-${dd}`
+            } as unknown as LottoRound;
+        }
+    } catch (err) {
+        console.error("Failed to fetch latest round from Data Connect:", err);
     }
 
     return null;

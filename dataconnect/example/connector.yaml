@@ -1,8 +1,6 @@
-connectorId: example
+connectorId: "korealotto-connector"
 generate:
   javascriptSdk:
-    - outputDir: ..\..\src\dataconnect-generated
-      package: "@dataconnect/generated"
-      packageJsonDir: ..\..
-      react: true
-      angular: false
+    outputDir: "../../src/lib/dataconnect"
+    package: "@lotto/dataconnect"
+    packageJsonDir: "../../"
