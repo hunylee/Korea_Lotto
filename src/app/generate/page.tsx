@@ -43,7 +43,10 @@ export default function GeneratePage() {
         if (numberSets.length === 0) return;
         setIsSimulating(true);
         try {
-            const results = await checkPastWinnings(numberSets);
+            // 정적 export 환경에서는 /lotto-history.json을 직접 fetch
+            const res = await fetch('/Korea_Lotto/lotto-history.json');
+            const history = await res.json();
+            const results = checkPastWinnings(numberSets, history);
             setSimulationResults(results);
         } catch (error) {
             console.error("Simulation failed:", error);
