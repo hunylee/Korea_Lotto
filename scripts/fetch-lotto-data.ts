@@ -4,7 +4,21 @@ import path from 'path';
 
 const DATA_DIR = path.join(process.cwd(), 'src', 'data');
 const FILE_PATH = path.join(DATA_DIR, 'lotto-history.json');
-const LAST_ROUND = 1202; // Update this as needed or make it dynamic
+
+/**
+ * 현재 날짜 기준으로 최신 로또 회차 번호를 계산합니다.
+ * 1회차: 2002-12-07 (토요일)
+ * 매주 토요일 오후 8시 45분 추첨
+ */
+function calculateLatestRound(): number {
+    // 1회차 추첨일 (KST 기준)
+    const firstDrawDate = new Date('2002-12-07T20:45:00+09:00');
+    const now = new Date();
+    const diffMs = now.getTime() - firstDrawDate.getTime();
+    const diffWeeks = Math.floor(diffMs / (7 * 24 * 60 * 60 * 1000));
+    // 0주 차이 = 1회차
+    return diffWeeks + 1;
+}
 
 async function fetchLottoData(round: number) {
     const url = `https://www.dhlottery.co.kr/common.do?method=getLottoNumber&drwNo=${round}`;
@@ -61,9 +75,9 @@ async function main() {
     // const start = 1200;
     // const end = 1202;
 
-    // Full range:
+    // Full range (동적으로 현재 최신 회차까지 계산):
     const start = 1;
-    const end = LAST_ROUND;
+    const end = calculateLatestRound();
 
     const results = [...existingData];
     const existingRounds = new Set(results.map((r: any) => r.drwNo));
