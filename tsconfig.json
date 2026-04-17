@@ -30,5 +30,12 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    "prisma",
+    "dataconnect",
+    "src/dataconnect-generated",
+    "src/lib/dataconnect",
+    "src/scripts"
+  ]
 }
